@@ -1,0 +1,19 @@
+body {
+  margin: 0px;
+}
+
+.bookshelf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+}
+
+.book {
+  border: 1px solid black;
+  padding: 24px;
+}
+
+.actions {
+  padding: 16px;
+}
