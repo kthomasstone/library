@@ -8,9 +8,74 @@
   </head>
   <body>
     <div class="all-content">
-      <div class="bookshelf"></div>
-      <div class="actions">
-        <button id="addBookBtn">Add book</button>
+      <h1>My Books</h1>
+      <div class="bookshelf">
+        <div class="book">
+          <p class="title">Title</p>
+          <p class="author">Author</p>
+          <p class="pages">Pages</p>
+          <p class="read">Read</p>
+        </div>
+      </div>
+      <!-- ADD BOOK FORM -->
+      <div class="cta">
+        <div class="add-book-form">
+          <form action="" method="POST">
+            <!-- title -->
+            <div class="form-field">
+              <div class="form-field-elements">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="book_title" required />
+              </div>
+            </div>
+            <!-- author -->
+            <div class="form-field">
+              <div class="form-field-elements">
+                <label for="author">Author</label>
+                <input type="text" id="author" name="book_author" required />
+              </div>
+            </div>
+            <!-- pages -->
+            <div class="form-field">
+              <div class="form-field-elements">
+                <label for="pages">Pages</label>
+
+                <input type="number" id="pages" name="num_pages" required />
+              </div>
+            </div>
+            <!-- read status -->
+            <div class="form-field">
+              <div class="form-field-elements">
+                <label for="status">Read status</label>
+
+                <input type="text" id="status" name="read_status" required />
+              </div>
+            </div>
+            <label for=""></label>
+            <button type="submit" id="addBookBtn">Add book</button>
+          </form>
+          <!-- END FORM -->
+        </div>
+
+        <button class="fab">
+          <div class="btn-state-layer">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M19.06 3.58988L20.41 4.93988C21.2 5.71988 21.2 6.98988 20.41 7.76988L7.18 20.9999H3V16.8199L13.4 6.40988L16.23 3.58988C17.01 2.80988 18.28 2.80988 19.06 3.58988ZM5 18.9999L6.41 19.0599L16.23 9.22988L14.82 7.81988L5 17.6399V18.9999Z"
+                fill="#001C37"
+              />
+            </svg>
+            <p>Add book</p>
+          </div>
+        </button>
       </div>
     </div>
     <script src="script.js"></script>

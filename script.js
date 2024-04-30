@@ -13,6 +13,15 @@ const library = [infiniteJest, klaraAndTheSun, onTheRoad];
 
 // HTML VARIABLES
 const bookshelf = document.querySelector(".bookshelf");
+const addBookForm = document.querySelector(".add-book-form");
+const fab = document.querySelector(".fab");
+const addBookBtn = document.getElementById("addBookBtn");
+
+// on click
+// toggle the display of the form
+fab.addEventListener("click", () => {
+  addBookForm.classList.toggle("hidden");
+});
 
 // CREATE BOOK
 function Book(title, author, pages, read) {
@@ -21,7 +30,11 @@ function Book(title, author, pages, read) {
   this.pages = pages;
   this.read = read;
   this.info = function () {
-    return `${title} by ${author}, ${pages} pages ${read}`;
+    return `
+    <p>${title}</p> 
+    <p>by ${author}</p>
+    <p>pages: ${pages}</p> 
+    <p>status: ${read}</p>`;
   };
 }
 
@@ -35,7 +48,7 @@ function createBookCard(book) {
   // create container
   const newBookDiv = document.createElement("div");
   // add object as content to newBookDiv variable
-  newBookDiv.textContent = book.info();
+  newBookDiv.innerHTML = book.info();
   // apply css class to style container
   newBookDiv.classList.add("book");
   return newBookDiv;
@@ -53,19 +66,17 @@ function buildLibrary(library, bookshelf) {
 }
 buildLibrary(library, bookshelf);
 
-const addBookBtn = document.getElementById("addBookBtn");
 // ADD BOOK USING HTML BUTTON
 // when "Add book" button is clicked
-addBookBtn.addEventListener("click", () => {
+addBookBtn.addEventListener("click", (event) => {
+  event.preventDefault();
   // prompt the user to answer questions about the book's title, author, pages, and whether they've read it.
   // store prompt answer after each question
-  const title = prompt(
-    "What is the title of the book?",
-    "Androids Dream of Electric Sheep"
-  );
-  const author = prompt("Who is the author?");
-  const pages = prompt("How many pages is the book?");
-  const read = prompt("Have you read the book? (read/not read)", "read");
+  const title = document.getElementById("title").value;
+  console.log(title);
+  const author = document.getElementById("author").value;
+  const pages = document.getElementById("pages").value;
+  const read = document.getElementById("status").value;
 
   // create a book object in javascript to store answers
   const newBook = new Book(title, author, pages, read);
@@ -73,8 +84,7 @@ addBookBtn.addEventListener("click", () => {
   // add book to library array
   addBookToLibrary(newBook);
 
-  // clear existing bookshelf
-  bookshelf.innerHTML = "";
-  // build library to refresh the bookshelf html
-  buildLibrary(library, bookshelf);
+  // Create and append the new book card to the existing bookshelf content
+  const bookCard = createBookCard(newBook);
+  bookshelf.appendChild(bookCard);
 });
