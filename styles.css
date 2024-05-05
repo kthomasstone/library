@@ -1,10 +1,17 @@
 :root {
-  /* COLORS */
+  /* PRIMARY COLOR */
   --m3-sys-light-primary-container: #d2e4ff;
   --m3-sys-light-on-primary-container: #001c37;
   --m3-sys-light-primary: #0861a4;
 
+  /* SURFACE */
+  --m3-surface: #faf9fc;
+  --m3-surface-container-lowest: #ffffff;
+  --m3-surface-container-low: #f4f3f7;
+  --m3-surface-container: #eeedf1;
+  --m3-surface-container-high: #e8e8eb;
   --m3-surface-container-highest: #e2e2e6;
+
   --m3-on-surface: #1a1c1e;
   --m3-on-surface-variant: #43474e;
 
@@ -27,26 +34,72 @@
     93,
     0.12
   );
+
+  /* ERROR */
+  --m3-error: #ba1a1a;
+  --m3-on-error: #ffffff;
+
+  --m3-error-container: #ffdad6;
+  --m3-on-error-container: #410002;
 }
 
 body {
   margin: 0px;
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: var(--m3-surface);
+  color: var(--m3-on-surface);
 }
 
 h1 {
   text-align: center;
+  font-size: 5.6rem;
 }
 
 .bookshelf {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
   padding: 64px 16px;
 }
 
 .book {
-  border: 1px solid black;
-  padding: 24px;
+  padding: 32px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  background-color: var(--m3-surface-container);
+}
+
+.read::before {
+  content: "completion status: ";
+  font-weight: bold;
+}
+
+.pages::before {
+  content: "pages: ";
+  font-weight: bold;
+}
+
+.title {
+  font-size: 2.4rem;
+  margin: 8px 0px;
+  text-align: center;
+}
+
+.author {
+  font-size: 1.3rem;
+  margin: 4px 0px 16px 0px;
+}
+
+.pages,
+.read {
+  margin: 4px 0px;
+  font-size: 1rem;
 }
 
 .add-book-form {
@@ -54,16 +107,17 @@ h1 {
   display: grid;
   justify-items: center;
   align-items: center;
-  background-color: #f9f9f9;
+  background-color: var(--m3-surface-container-low);
   border: none;
   border-radius: 24px;
+  display: none;
 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   /* z-index: 1000; */
 }
 
 .hidden {
-  display: none;
+  display: block;
 }
 
 form > button {
@@ -153,7 +207,7 @@ input {
   line-height: 20px;
 }
 
-.fab div.btn-state-layer {
+.fab .btn-state-layer {
   display: flex;
   gap: 12px;
   justify-content: center;
@@ -165,10 +219,56 @@ input {
   transition: background 0.2s ease;
 }
 
-.fab div.btn-state-layer:hover {
+.fab .btn-state-layer:hover {
   background: var(--m3-state-layers-light-on-primary-container-opacity-008);
 }
 
-.fab div.btn-state-layer:active {
+.fab .btn-state-layer:active {
   background: var(--m3-state-layers-light-on-primary-container-opacity-012);
+}
+
+.remove-book {
+  font-size: 1rem;
+  background-color: var(--m3-error);
+
+  border-radius: 100px;
+  border: 1px;
+  color: var(--m3-sys-light-on-primary-container);
+  flex-grow: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+
+  box-shadow: var(--m3-elevation-3);
+  transition: box-shadow 0.2s ease;
+  margin: 16px 0px;
+}
+
+.remove-book:hover {
+  box-shadow: var(--m3-elevation-4);
+}
+
+.remove-book:active {
+  box-shadow: var(--m3-elevation-3);
+}
+
+.btn-state-layer {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px 24px 10px 24px;
+  border-radius: 100px;
+  transition: background 0.2s ease;
+}
+
+.buttonText {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--m3-on-error);
 }
