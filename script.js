@@ -72,6 +72,9 @@ function createBookCard(book) {
   newBookDiv.appendChild(pagesBook);
   newBookDiv.appendChild(readBook);
 
+  const readBookButton = createReadBookButton();
+  newBookDiv.appendChild(readBookButton);
+
   const removeBookButton = createRemoveBookButton();
   newBookDiv.appendChild(removeBookButton);
 
@@ -127,24 +130,51 @@ function createRemoveBookButton() {
 
   const buttonTextP = document.createElement("p");
   buttonTextP.textContent = "Remove book";
-  buttonTextP.classList.add("buttonText");
+  buttonTextP.classList.add("errorButtonText");
 
   buttonStateLayer.appendChild(buttonTextP);
   buttonRemoveBook.appendChild(buttonStateLayer);
 
   return buttonRemoveBook;
 }
+// CREATE READ BOOK BUTTON
+function createReadBookButton() {
+  const buttonReadBook = document.createElement("button");
+  buttonReadBook.classList.add("readButton");
+
+  const buttonStateLayer = document.createElement("button");
+  buttonStateLayer.classList.add("btn-state-layer");
+
+  const buttonTextP = document.createElement("p");
+  buttonTextP.textContent = "Update status";
+  buttonTextP.classList.add("readButtonText");
+
+  buttonStateLayer.appendChild(buttonTextP);
+  buttonReadBook.appendChild(buttonStateLayer);
+
+  return buttonReadBook;
+}
 
 // add event listener to the bookshelf
 bookshelf.addEventListener("click", (event) => {
+  const bookCard = event.target.closest(".book");
+  if (!bookCard) return; // Early exit if no book card is found
+
   if (event.target.closest(".remove-book")) {
-    const bookCard = event.target.closest(".book");
-    if (bookCard) {
-      bookshelf.removeChild(bookCard);
-      const bookCardIndex = bookCard.getAttribute("data-index");
-      library.splice(bookCardIndex, 1);
-      // repopulate library bookCard indices
-      updateBookIndices();
+    bookshelf.removeChild(bookCard);
+    const bookCardIndex = parseInt(bookCard.getAttribute("data-index"), 10);
+    library.splice(bookCardIndex, 1);
+    updateBookIndices(); // Make sure book indices are updated after removal
+  } else if (event.target.closest(".readButton")) {
+    const readStatus = bookCard.querySelector(".read"); // Find the read status paragraph
+    const bookCardIndex = parseInt(bookCard.getAttribute("data-index"), 10);
+    const book = library[bookCardIndex]; // Get the book from the library array
+    if (book.read === "read") {
+      book.read = "not read";
+      readStatus.textContent = "not read"; // Update the text content of the paragraph
+    } else {
+      book.read = "read";
+      readStatus.textContent = "read"; // Update the text content of the paragraph
     }
   }
 });
